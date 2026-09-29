@@ -6,21 +6,19 @@ outside the arm model. Shoulder and elbow rotate around parallel left-to-right
 axes, so they move in one plane; base yaw rotates that plane around the vertical
 axis.
 
-## Folders
+## Interactive examples
 
-- `fixed/` — IK for a requested tool-tip position and fixed tool pitch.
-- `free/` — IK for tool-tip XYZ that chooses the feasible wrist pitch closest
-to the current joint pose.
-- `src/kinematics.py` — shared dimensions, forward kinematics, and fixed-pitch IK.
-
-Run from the project root with `python -m fixed.example` or
-`python -m free.kinematics`.
+- Fixed tool pitch: `python -m fixed.example` — enter `x y z pitch` repeatedly.
+- Free tool pitch: `python -m free.kinematics` — enter `x y z` repeatedly; the
+  IK selects the wrist posture closest to the preceding solution.
+- Type `q` to quit either CLI.
+- `src/kinematics.py` contains shared dimensions, forward kinematics, and
+  fixed-pitch IK.
 
 ## Edit dimensions
 
-Change `ArmDimensions` in either example. All lengths must use the same unit;
-the sample values are millimeters. Public angles are degrees. The five axes are
-base yaw, shoulder pitch, elbow pitch, wrist pitch, and wrist roll.
+Change `ArmDimensions` in each CLI file. All lengths must use the same unit;
+the sample values are millimeters. Public angles are degrees.
 
 ## Coordinate conventions
 

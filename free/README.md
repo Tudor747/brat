@@ -1,10 +1,11 @@
 ﻿# Free-orientation IK
 
-This folder solves a tool-tip XYZ target without prescribing tool pitch. Since
-many joint combinations can reach the same point, it samples wrist pitches
-and selects the feasible solution with the least angle movement from a supplied
-starting pose. Edit dimensions, `current`, and target XYZ in `kinematics.py`.
-The pitch search resolution defaults to 2 degrees and can be changed with
-`pitch_step`.
+Interactive CLI for targets that specify only tool-tip XYZ. It searches wrist
+pitch choices and selects the feasible solution closest to the current joint
+pose. After each successful target, that solution becomes the starting pose
+for the next target. Edit dimensions and the initial joint pose in
+`kinematics.py`.
 
-Run from the project root: `python -m free.kinematics`.
+Run from the project root with `python -m free.kinematics`. Enter `x y z`
+(space or comma separated) for each target; type `q` to quit. Search resolution
+is set by `pitch_step` in the IK function (default 2 degrees).

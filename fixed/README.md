@@ -1,7 +1,11 @@
 ﻿# Fixed-orientation IK
 
-This folder is for targets where both tool-tip position and tool pitch are
-specified. Edit `target` in `example.py`; lengths are in the same unit and
-angles are degrees. The implementation lives in `src/kinematics.py`.
+Interactive CLI for targets where tool-tip position and tool pitch are
+specified. Edit dimensions in `example.py`, then run from the project root:
 
-Run from the project root: `python -m fixed.example`.
+```sh
+python -m fixed.example
+```
+
+Enter `x y z tool_pitch` (space or comma separated) for each target. Type `q`
+to quit. Lengths and coordinates use the same unit; angles are degrees.
