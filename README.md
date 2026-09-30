@@ -15,6 +15,14 @@ axis.
 - `src/kinematics.py` contains shared dimensions, forward kinematics, and
   fixed-pitch IK.
 
+## Configuration and firmware
+
+`config/raspberry_pi.py` contains placeholders for serial settings and motor
+calibration. `config/esp_controller.ino` is an ESP firmware skeleton. They
+share a proposed angle-based line protocol documented in `config/README.md`.
+Hardware pin assignments, homing, joint limits, and actual motor control still
+need to be filled in for the selected components.
+
 ## Edit dimensions
 
 Change `ArmDimensions` in each CLI file. All lengths must use the same unit;
@@ -27,10 +35,3 @@ the sample values are millimeters. Public angles are degrees.
 - Positive shoulder/elbow pitch raises the arm.
 - Wrist length plus tool length is a fixed extension aligned to tool pitch.
 - Wrist roll and the gripper servo do not affect modeled tip position.
-
-## Pi and ESP
-
-Keep kinematics as ordinary Python calculations on the Pi. The Pi can send joint
-commands over serial to the ESP, which handles timed step pulses and hardware
-limits. Convert degrees to motor steps using measured belt ratios, steps per
-revolution, and calibration for each joint.

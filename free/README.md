@@ -1,11 +1,9 @@
 ﻿# Free-orientation IK
 
-Interactive CLI for targets that specify only tool-tip XYZ. It searches wrist
-pitch choices and selects the feasible solution closest to the current joint
-pose. After each successful target, that solution becomes the starting pose
-for the next target. Edit dimensions and the initial joint pose in
-`kinematics.py`.
+Interactive CLI for tool-tip XYZ targets. It samples possible wrist pitches and
+selects the feasible solution closest to the current joint pose. Each successful
+solution becomes the next starting pose.
 
 Run from the project root with `python -m free.kinematics`. Enter `x y z`
-(space or comma separated) for each target; type `q` to quit. Search resolution
-is set by `pitch_step` in the IK function (default 2 degrees).
+(space or comma separated) repeatedly; type `q` to quit. The CLI is in
+`kinematics.py`; the reusable solver is in `solver.py`.

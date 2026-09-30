@@ -1,6 +1,6 @@
 ﻿"""Interactive free-orientation, tool-tip position IK CLI."""
 
-from free.kinematics import inverse_kinematics_free
+from free.solver import inverse_kinematics_free
 from src.kinematics import ArmDimensions, JointAngles, UnreachableTargetError
 
 

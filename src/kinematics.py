@@ -15,11 +15,11 @@ from typing import Literal
 class ArmDimensions:
     """All lengths use one unit (millimeters by default)."""
 
-    base_height: float = 80.0
-    upper_arm: float = 120.0
-    forearm: float = 100.0
-    wrist_length: float = 40.0
-    tool_length: float = 60.0
+    base_height: float = 90.0
+    upper_arm: float = 230.0
+    forearm: float = 175.0
+    wrist_length: float = 42.0
+    tool_length: float = 141.0
 
 
 @dataclass(frozen=True)
