@@ -11,23 +11,39 @@ SERIAL_TIMEOUT_SECONDS = 1.0
 
 # Human-readable command format planned for the serial protocol.
 # Example line: MOVE,base_yaw,shoulder_pitch,elbow_pitch,wrist_pitch,wrist_roll\n
-# Joint-to-motor calibration. Replace placeholders with measured values.
-# steps_per_degree = (motor_steps_per_revolution * microsteps * belt_ratio) / 360
+# Five steppers total: four NEMA 17 and one NEMA 23 for shoulder lift.
+MOTOR_FRAME_SIZE = {
+    "base_yaw": "NEMA 17",
+    "shoulder_pitch": "NEMA 23",
+    "elbow_pitch": "NEMA 17",
+    "wrist_a": "NEMA 17",
+    "wrist_b": "NEMA 17",
+}
+
+# Direct-joint calibration, including reduction and microstepping.
+# steps_per_degree = (motor_steps_per_revolution * microsteps * gear_ratio) / 360
 JOINT_STEPS_PER_DEGREE = {
     "base_yaw": None,
     "shoulder_pitch": None,
     "elbow_pitch": None,
-    "wrist_pitch": None,
-    "wrist_roll": None,
 }
 
-# Motor direction signs; set each to +1 or -1 after checking motion direction.
-JOINT_DIRECTION = {
+# Differential calibration in motor-shaft degrees per joint degree.
+# a = pitch_ratio * wrist_pitch + roll_ratio * wrist_roll
+# b = pitch_ratio * wrist_pitch - roll_ratio * wrist_roll
+# Ratios must be measured; do not assume a 1:1 differential.
+WRIST_PITCH_RATIO = None
+WRIST_ROLL_RATIO = None
+WRIST_MOTOR_STEPS_PER_DEGREE = {"wrist_a": None, "wrist_b": None}
+
+# Physical motor direction signs, applied AFTER mixing wrist pitch and roll.
+# Same/opposite motion refers to this calibrated motor convention.
+MOTOR_DIRECTION = {
     "base_yaw": 1,
     "shoulder_pitch": 1,
     "elbow_pitch": 1,
-    "wrist_pitch": 1,
-    "wrist_roll": 1,
+    "wrist_a": 1,
+    "wrist_b": 1,
 }
 
 # End-effector servo is separate from the five arm axes.

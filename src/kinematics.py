@@ -1,6 +1,9 @@
 ﻿"""Readable forward and inverse kinematics for a simple 5-axis arm.
 
 Axes: base yaw, shoulder pitch, elbow pitch, wrist pitch, wrist roll.
+Mechanical sequence: base roll -> shoulder pitch -> elbow pitch -> wrist
+pitch + roll. Base roll is called base_yaw here because its axis is world z;
+wrist roll is about the tool's longitudinal axis.
 Angles are degrees at the public API. Internal calculations use radians.
 """
 

@@ -20,10 +20,11 @@ const int SHOULDER_STEP_PIN = -1;
 const int SHOULDER_DIR_PIN = -1;
 const int ELBOW_STEP_PIN = -1;
 const int ELBOW_DIR_PIN = -1;
-const int WRIST_PITCH_STEP_PIN = -1;
-const int WRIST_PITCH_DIR_PIN = -1;
-const int WRIST_ROLL_STEP_PIN = -1;
-const int WRIST_ROLL_DIR_PIN = -1;
+// Two NEMA 17 motors drive a differential, not individual pitch/roll axes.
+const int WRIST_A_STEP_PIN = -1;
+const int WRIST_A_DIR_PIN = -1;
+const int WRIST_B_STEP_PIN = -1;
+const int WRIST_B_DIR_PIN = -1;
 const int GRIPPER_SERVO_PIN = -1;
 
 void setup() {
@@ -35,5 +36,11 @@ void setup() {
 void loop() {
   // TODO: read one complete newline-terminated command without blocking for
   // long periods; validate its fields, apply joint limits, then move safely.
+  // Mix joint targets into calibrated differential motor-shaft angles:
+  // a = pitch_ratio * wrist_pitch + roll_ratio * wrist_roll
+  // b = pitch_ratio * wrist_pitch - roll_ratio * wrist_roll
+  // Then apply each motor's direction and steps-per-degree calibration.
+  // Schedule A/B pulses together so the requested pitch/roll path is preserved.
+  // Handle GRIP separately with the gripper servo.
   // Do not treat the placeholder pin values above as usable hardware settings.
 }
