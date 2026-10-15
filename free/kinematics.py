@@ -1,6 +1,7 @@
 ﻿"""Interactive free-orientation, tool-tip position IK CLI."""
 
 from free.solver import inverse_kinematics_free
+from config.raspberry_pi import ARM, JOINT_LIMITS
 from src.kinematics import ArmDimensions, JointAngles, UnreachableTargetError
 
 
@@ -24,13 +25,7 @@ def read_position() -> tuple[float, float, float] | None:
 
 def main() -> None:
     # Edit dimensions and the initial pose here. Keep lengths in one unit.
-    arm = ArmDimensions(
-        base_height=80,
-        upper_arm=120,
-        forearm=100,
-        wrist_length=40,
-        tool_length=60,
-    )
+    arm = ARM
     current = JointAngles(
         base_yaw=0,
         shoulder_pitch=20,
@@ -47,9 +42,9 @@ def main() -> None:
             return
         try:
             current = inverse_kinematics_free(
-                *position, dimensions=arm, start=current, elbow="down"
+                *position, dimensions=arm, start=current, elbow="down", limits=JOINT_LIMITS
             )
-        except UnreachableTargetError as error:
+        except ValueError as error:
             print(f"Cannot reach that target: {error}")
             continue
         print("Joint angles (degrees):", current)

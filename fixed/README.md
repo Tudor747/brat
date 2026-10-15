@@ -1,7 +1,7 @@
 ﻿# Fixed-orientation IK
 
 Interactive CLI for targets where tool-tip position and tool pitch are
-specified. Edit dimensions in `example.py`, then run from the project root:
+specified. Edit shared dimensions in `config/raspberry_pi.py`, then run from the project root:
 
 ```sh
 python -m fixed.example

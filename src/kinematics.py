@@ -9,8 +9,8 @@ Angles are degrees at the public API. Internal calculations use radians.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from math import acos, atan2, cos, degrees, hypot, radians, sin
+from dataclasses import dataclass, astuple
+from math import acos, atan2, cos, degrees, hypot, radians, sin, isfinite
 from typing import Literal
 
 
@@ -24,6 +24,10 @@ class ArmDimensions:
     wrist_length: float = 42.0
     tool_length: float = 141.0
 
+    def __post_init__(self):
+        if not all(isfinite(v) and v >= 0 for v in astuple(self)) or min(self.upper_arm, self.forearm) <= 0:
+            raise ValueError("Dimensions must be finite and nonnegative; arm links must be positive")
+
 
 @dataclass(frozen=True)
 class JointAngles:
@@ -35,6 +39,10 @@ class JointAngles:
     wrist_pitch: float = 0.0
     wrist_roll: float = 0.0
 
+    def __post_init__(self):
+        if not all(isfinite(v) for v in astuple(self)):
+            raise ValueError("Joint angles must be finite")
+
 
 @dataclass(frozen=True)
 class ToolPose:
@@ -45,6 +53,14 @@ class ToolPose:
     z: float
     pitch: float
     roll: float
+
+    def __post_init__(self):
+        if not all(isfinite(v) for v in astuple(self)):
+            raise ValueError("Tool pose must be finite")
+
+
+def within_limits(angles: JointAngles, limits) -> bool:
+    return len(limits) == 5 and all(low <= value <= high for value, (low, high) in zip(astuple(angles), limits))
 
 
 ElbowMode = Literal["up", "down"]

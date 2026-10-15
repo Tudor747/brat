@@ -1,6 +1,7 @@
 ﻿"""Interactive fixed-tool-pitch inverse kinematics CLI."""
 
 from src.kinematics import ArmDimensions, ToolPose, UnreachableTargetError, inverse_kinematics
+from config.raspberry_pi import ARM
 
 
 def read_target() -> ToolPose | None:
@@ -18,18 +19,15 @@ def read_target() -> ToolPose | None:
         except ValueError:
             print("Those values must be numbers.")
             continue
-        return ToolPose(x=x, y=y, z=z, pitch=pitch, roll=0.0)
+        try:
+            return ToolPose(x=x, y=y, z=z, pitch=pitch, roll=0.0)
+        except ValueError as error:
+            print(error)
 
 
 def main() -> None:
     # Edit dimensions here. Keep all lengths in the same unit (example: mm).
-    arm = ArmDimensions(
-        base_height=80,
-        upper_arm=120,
-        forearm=100,
-        wrist_length=40,
-        tool_length=60,
-    )
+    arm = ARM
     print("Fixed-pitch IK. Enter x y z pitch, or q to quit.")
     while True:
         target = read_target()
